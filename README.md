@@ -1,0 +1,1 @@
+This project is a Blogging application with NodeJs Backend server. Using Server Side Rendering.
