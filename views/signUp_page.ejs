@@ -8,7 +8,17 @@
     <%- include('./partials/nav') %>
 
     <div class="container mt-4">
-      <form action="/user/signup" method="post">
+      <form action="/user/signup" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="profileImage" class="form-label">Profile Image</label>
+          <input
+            type="file"
+            class="form-control"
+            id="profileImage"
+            name="profileImage"
+            aria-describedby="profileImage"
+          />
+        </div>
         <div class="mb-3">
           <label for="fullName" class="form-label">Full Name</label>
           <input
