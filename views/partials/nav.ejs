@@ -1,27 +1,81 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Blog It Out</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+<nav
+  class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body"
+  data-bs-theme="dark"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Blog It Out</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link <%= currentPath === '/' ? 'active' : '' %>" aria-current="page" href="/">Home</a>
+        </li>
+        <% if (locals.user) { %>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Add Blog</a>
+            <a class="nav-link <%= currentPath === '/add-new' ? 'active' : '' %>" href="/blog/add-new">Add Blog</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <%= user.fullName %>
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Previous Blogs</a></li>
-                <li><a class="dropdown-item" href="#" style="background-color: red;">Log-Out</a></li>
+              <li><a class="dropdown-item <%= currentPath === '/user/blogs' ? 'active' : '' %>" href="#">Previous Blogs</a></li>
+              <li>
+                <a class="dropdown-item <%= currentPath === '/user/logout' ? 'active' : '' %>" href="/user/logout" style="background-color: red">Log-Out</a>
+              </li>
             </ul>
           </li>
-        </ul>
-      </div>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link <%= currentPath === '/signin' ? 'active' : '' %>" href="/user/signin">Sign-In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%= currentPath === '/signup' ? 'active' : '' %>" href="/user/signup">Create Account</a>
+          </li>
+        <% } %>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+  <div class="container mt-4">
+    <div id="alert" class="alert alert-danger" role="alert"><%= locals.error %></div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const alert = document.getElementById('alert');
+      if (alert) {
+        // Trigger fade-in effect
+        setTimeout(() => {
+          alert.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+          alert.classList.remove('show');
+          alert.classList.add('hide');
+
+          setTimeout(() => {
+            alert.remove();
+          }, 1000);
+        }, 2000); 
+      }
+    });
+  </script>
+<% } %>
