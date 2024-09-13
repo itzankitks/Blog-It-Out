@@ -43,7 +43,10 @@
           <div class="list-group">
             <div class="d-flex w-100 justify-content-between">
               <div><img src="<%= comment.createdBy.profileImageURL %>" width="40px" /> <b><%= comment.createdBy.fullName %></b></div>
-              <small>3 days ago</small>
+              <small>
+                <%= new Date(comment.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %> - 
+                <%= new Date(comment.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) %>
+              </small>
             </div>
             <pre class="mb-1"><%= comment.content %></pre>
           </div>
